@@ -2,12 +2,10 @@
 import { useEffect, useState } from 'react';
 import { getTimeUntilChristmas } from '../utils/contador';
 import { TimeUntilChristmas } from '@/types/timer';
-import { getTextColorClass } from '@/utils/colors';
-import { isMobile } from '@/utils/mobile';
+import RobertoCarlos from '@/components/RobertoCarlos';
+import Counter from '@/components/Counter';
 
 export default function Home() {
-  const urlRobertoCarlos = "https://www.youtube.com/embed/E-1NIzeNgQo?si=PrTui6B1TLyPEatu&autoplay=1";
-  const urlRobertoCarlosMutada = `${urlRobertoCarlos}&mute=1`;
   const [timeLeft, setTimeLeft] = useState<null | TimeUntilChristmas>(getTimeUntilChristmas);
 
   useEffect(() => {
@@ -17,35 +15,9 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  if (timeLeft === null) {
-    return (
-      <iframe
-        className="w-full h-full"
-        width="560"
-        height="315"
-        src={isMobile() ? urlRobertoCarlosMutada : urlRobertoCarlos}
-        title="Feliz Natal"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-      />
-    );
-  } else {
-    const color = getTextColorClass(timeLeft.days);
-    return (
-      <div
-        className={
-          `${color} flex flex-col items-center justify-center
-          w-full h-screen bg-black text-2xl font-bold text-center`
-        }
-      >
-        <p>Faltam</p>
-        <p>
-          {timeLeft.days} dias, {timeLeft.hours} horas, {timeLeft.minutes} minutos e {timeLeft.seconds} segundos
-        </p>
-        <p>para o Natal!!!</p>
-      </div>
-    );
-  };
+  return timeLeft === null ? (
+    <RobertoCarlos />
+  ) : (
+    <Counter timeLeft={timeLeft} />
+  );
 }
