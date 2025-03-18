@@ -1,10 +1,7 @@
+import { isMobile } from "@/utils/mobile";
 import { urlRobertoCarlos, urlRobertoCarlosMutada } from "@/utils/url";
 
-function isMobile () {
-    return window.innerWidth <= 768;
-};
-
-export default function RobertoCarlos () {
+export default function RobertoCarlos() {
     return (
         <iframe
             className="w-full h-full"
@@ -17,5 +14,5 @@ export default function RobertoCarlos () {
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
         />
-    )
+    );
 }
