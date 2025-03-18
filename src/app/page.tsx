@@ -20,7 +20,7 @@ export default function Home() {
         className="w-full h-full"
         width="560"
         height="315"
-        src="https://www.youtube.com/embed/E-1NIzeNgQo?si=PrTui6B1TLyPEatu"
+        src="https://www.youtube.com/embed/E-1NIzeNgQo?si=PrTui6B1TLyPEatu&autoplay=1"
         title="Feliz Natal"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

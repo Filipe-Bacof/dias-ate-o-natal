@@ -22,8 +22,8 @@ function getTimeUntilChristmas(): TimeUntilChristmas {
 
 function isChristmas(): boolean {
     const now = new Date();
-    // return true; // Para testar antes do natal
-    return now.getMonth() === 11 && (now.getDate() === 24 || now.getDate() === 25)
+    return true; // Para testar antes do natal
+    // return now.getMonth() === 11 && (now.getDate() === 24 || now.getDate() === 25)
 }
 
 export {
