@@ -5,7 +5,11 @@ import { TimeUntilChristmas } from '@/types/timer';
 import { getTextColorClass } from '@/utils/colors';
 
 export default function Home() {
+  const urlRobertoCarlos = "https://www.youtube.com/embed/E-1NIzeNgQo?si=PrTui6B1TLyPEatu&autoplay=1";
+  const urlRobertoCarlosMutada = `${urlRobertoCarlos}&mute=1`;
   const [timeLeft, setTimeLeft] = useState<null | TimeUntilChristmas>(getTimeUntilChristmas);
+  const [showUnlockScreen, setShowUnlockScreen] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
 
   useEffect(() => {
     const updateTimer = () => setTimeLeft(getTimeUntilChristmas());
@@ -14,19 +18,47 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleUnlock = () => {
+    setShowUnlockScreen(false);
+    setIsMuted(false);
+  };
+
   if (timeLeft === null) {
     return (
-      <iframe
-        className="w-full h-full"
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/E-1NIzeNgQo?si=PrTui6B1TLyPEatu&autoplay=1&mute=1"
-        title="Feliz Natal"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-      />
+      <div className="relative w-full h-full bg-black">
+        {showUnlockScreen && (
+          <div
+            className="absolute top-0 left-0 w-full h-full bg-transparent flex items-center justify-center text-white text-xl font-bold z-50 cursor-pointer"
+            onClick={handleUnlock}
+          >
+            <p className='text-red-600 text-6xl font-extrabold'></p>
+          </div>
+        )}
+        <iframe
+          className="w-full h-full"
+          width="560"
+          height="315"
+          src={urlRobertoCarlosMutada}
+          title="Feliz Natal"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          style={{ display: isMuted ? 'block' : 'none' }}
+        />
+        <iframe
+          className="w-full h-full"
+          width="560"
+          height="315"
+          src={urlRobertoCarlos}
+          title="Feliz Natal"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          style={{ display: isMuted ? 'none' : 'block' }}
+        />
+      </div>
     );
   } else {
     const color = getTextColorClass(timeLeft.days);
